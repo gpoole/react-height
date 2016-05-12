@@ -32,7 +32,7 @@ const ReactHeight = React.createClass({
     const width = this.wrapper.clientWidth;
     const dirty = false;
 
-    this.setState({height, width, dirty}, this.emitDimensions);
+    this.setState({height, width, dirty}, this.emitDimensions());
   },
 
 
@@ -54,25 +54,29 @@ const ReactHeight = React.createClass({
     if (height === this.state.height && width === this.state.width) {
       this.setState({dirty});
     } else {
-      this.setState({height, width, dirty}, this.emitDimensions);
+      this.setState({height, width, dirty}, this.emitDimensions());
     }
   },
 
   emitDimensions() {
-    const {onHeightReady, onWidthReady, onDimensionsReady} = this.props;
-    const {width, height} = this.state;
+    const {width: oldWidth, height: oldHeight} = this.state;
 
-    if (typeof onHeightReady === 'function') {
-      onHeightReady(height);
-    }
+    return () => {
+      const {onHeightReady, onWidthReady, onDimensionsReady} = this.props;
+      const {width, height} = this.state;
 
-    if (typeof onWidthReady === 'function') {
-      onWidthReady(width);
-    }
+      if (typeof onHeightReady === 'function' && height !== oldHeight) {
+        onHeightReady(height);
+      }
 
-    if (typeof onDimensionsReady === 'function') {
-      onDimensionsReady({width, height});
-    }
+      if (typeof onWidthReady === 'function' && width !== oldWidth) {
+        onWidthReady(width);
+      }
+
+      if (typeof onDimensionsReady === 'function') {
+        onDimensionsReady({width, height});
+      }
+    };
   },
 
   setWrapperRef(el) {
