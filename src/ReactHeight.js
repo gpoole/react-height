@@ -17,10 +17,7 @@ const ReactHeight = React.createClass({
 
 
   getDefaultProps() {
-    return {
-      hidden: false,
-      dirty: true
-    };
+    return {hidden: false, dirty: true};
   },
 
 
