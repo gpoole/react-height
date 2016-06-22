@@ -1,6 +1,7 @@
 import React from 'react';
 import VariableText from './VariableText';
 import Nested from './Nested';
+import Blocks from './Blocks';
 import {name} from '../../../package.json'
 import css  from './App.css';
 
@@ -21,6 +22,10 @@ const App = React.createClass({
           <Nested />
         </section>
 
+        <section className={css.section}>
+          <h2>Example 3. Width and height</h2>
+          <Blocks />
+        </section>
       </div>
     );
   }
