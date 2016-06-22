@@ -40,8 +40,8 @@ const Blocks = React.createClass({
         <div className={css.content}>
           <ReactHeight
             onDimensionsReady={({ width, height }) => this.setState({ width, height })}
-            className={css.container}>
-            {blockElements}
+            style={{display: 'inline-block'}}>
+            {blockElements.length ? blockElements : <span>No blocks</span>}
           </ReactHeight>
         </div>
       </div>
