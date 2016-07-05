@@ -64,8 +64,23 @@ then include as
 [http://codepen.io/nkbt/pen/NGzgGb](http://codepen.io/nkbt/pen/NGzgGb?editors=101)
 
 ## Usage
+
 ```js
 <ReactHeight onHeightReady={height => console.log(height)}>
+  <div>Random content</div>
+</ReactHeight>
+```
+
+Or measure width:
+```jsx
+<ReactHeight onWidthReady={width => console.log(width)} shrinkToFit>
+  <div>Random content</div>
+</ReactHeight>
+```
+
+Or both dimensions at once:
+```jsx
+<ReactHeight onDimensionsReady={({width, height}) => console.log(width, height)} shrinkToFit>
   <div>Random content</div>
 </ReactHeight>
 ```
@@ -73,10 +88,22 @@ then include as
 ## Options
 
 
-#### `onHeightReady`: PropTypes.function.isRequired
+#### `onHeightReady(height)`: PropTypes.function
 
 Callback, invoked when height is measured (and when it is changed).
 
+#### `onWidthReady(width)`: PropTypes.function
+
+Callback, invoked when width is measured (and when it is changed).
+
+### `onDimensionsReady(dimensions)`: PropTypes.function
+
+Callback, invoked when dimensions are measured (and when they change).
+
+### `shrinkToFit`: PropTypes.bool
+
+Applies styles to collapse the wrapping div (`display: inline-block`) to allow for accurate width measurement. If this prop is not
+set or similar styles aren't used, width measurements will not be correct.
 
 #### `children`: PropTypes.node.isRequired
 
@@ -117,8 +144,6 @@ All other props are applied to a container that is being measured. So it is poss
   </div>
 </ReactHeight>
 ```
-
-
 
 ## Development and testing
 

@@ -12,7 +12,8 @@ const ReactHeight = React.createClass({
     onWidthReady: React.PropTypes.func,
     onDimensionsReady: React.PropTypes.func,
     hidden: React.PropTypes.bool,
-    dirty: React.PropTypes.bool
+    dirty: React.PropTypes.bool,
+    shrinkToFit: React.PropTypes.bool
   },
 
 
@@ -85,22 +86,28 @@ const ReactHeight = React.createClass({
 
 
   render() {
-    const {onHeightReady: _, hidden, children, ...props} = this.props;
+    const {onHeightReady: _, hidden, children, shrinkToFit, ...props} = this.props;
     const {dirty} = this.state;
 
     if (hidden && !dirty) {
       return null;
     }
 
+    const style = {};
+
+    if (shrinkToFit) {
+      style.display = 'inline-block';
+    }
+
     if (hidden) {
       return (
         <div style={{height: 0, width: 0, overflow: 'hidden'}}>
-          <div ref={this.setWrapperRef} {...props}>{children}</div>
+          <div ref={this.setWrapperRef} style={style} {...props}>{children}</div>
         </div>
       );
     }
 
-    return <div ref={this.setWrapperRef} {...props}>{children}</div>;
+    return <div ref={this.setWrapperRef} style={style} {...props}>{children}</div>;
   }
 });
 

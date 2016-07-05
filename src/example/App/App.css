@@ -25,10 +25,10 @@
 }
 
 .block {
-  display: inline-block;
+  float: left;
   margin: 0 5px 5px 0;
   background-color: green;
   border: 1px solid blue;
-  width: 100px;
   height: 100px;
+  width: 100px;
 }
